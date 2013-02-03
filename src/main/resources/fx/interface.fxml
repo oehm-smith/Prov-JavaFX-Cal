@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="909.0" xmlns:fx="http://javafx.com/fxml" fx:controller="fx.FxController">
+  <center>
+    <TabPane tabClosingPolicy="ALL_TABS" BorderPane.alignment="TOP_LEFT">
+      <tabs>
+        <Tab text="Global Dashboard">
+          <content>
+            <FlowPane>
+              <children>
+                <AnchorPane id="AnchorPane" maxHeight="-Infinity" minHeight="508.0" minWidth="805.0" prefHeight="508.0" prefWidth="805.0">
+                  <children>
+                    <TitledPane animated="false" layoutX="20.0" layoutY="20.0" prefWidth="804.0" text="Active Alerts">
+                      <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                            <TableView onDragDetected="#dragDetected" prefHeight="101.0" prefWidth="804.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Alert Level" />
+                                <TableColumn prefWidth="75.0" text="Search Group" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="20.0" layoutY="186.0" text="Database Activity Monitor">
+                      <content>
+                        <AreaChart id="AreaChartNxN" animated="false" prefHeight="238.0" prefWidth="800.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" upperBound="110.0" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </AreaChart>
+                      </content>
+                    </TitledPane>
+                    <MenuButton fx:id="dropdownTimeScaleId" layoutX="0.0" layoutY="495.0" mnemonicParsing="false" onMouseClicked="#onHandleTimeScaleEvent" text="Time Scale" translateX="20.0" translateY="-340.0">
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Global" onAction="#onChange"/>
+                        <MenuItem mnemonicParsing="false" text="Month" />
+                        <MenuItem mnemonicParsing="false" text="Week" />
+                        <MenuItem mnemonicParsing="false" text="Day" />
+                      </items>
+                    </MenuButton>
+                    <TitledPane animated="false" layoutX="91.0" layoutY="470.0" prefHeight="68.0" prefWidth="804.0" text="Key Dates Timeline" translateX="-70.0" translateY="-10.0">
+                      <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                          <children>
+                            <TableView fx:id="tableTimelineId" prefHeight="42.0" prefWidth="800.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Column X" />
+                                <TableColumn prefWidth="75.0" text="Column X" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <Button layoutX="200.0" layoutY="155.0" mnemonicParsing="false" onAction="#buttonAction" text="Button" />
+                  </children>
+                </AnchorPane>
+              </children>
+            </FlowPane>
+          </content>
+        </Tab>
+        <Tab text="Trends">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <AnchorPane id="AnchorPane" layoutX="21.0" layoutY="18.0" minHeight="510.0" prefHeight="510.0" prefWidth="821.0">
+                  <children>
+                    <MenuButton layoutX="350.0" layoutY="930.0" mnemonicParsing="false" text="Select Search Group" translateX="-350.0" translateY="-930.0">
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Global" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 1" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 2" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 3" />
+                      </items>
+                    </MenuButton>
+                    <MenuButton layoutX="350.0" layoutY="930.0" mnemonicParsing="false" text="Time Scale" translateX="-180.0" translateY="-930.0">
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Global" />
+                        <MenuItem mnemonicParsing="false" text="Month" />
+                        <MenuItem mnemonicParsing="false" text="Week" />
+                        <MenuItem mnemonicParsing="false" text="Day" />
+                      </items>
+                    </MenuButton>
+                    <TitledPane animated="false" layoutX="35.0" layoutY="128.0" minWidth="611.0" prefHeight="181.0" prefWidth="818.0" text="Search Group Activity Monitor" translateX="-35.0" translateY="-90.0">
+                      <content>
+                        <AreaChart id="AreaChartNxN" animated="false" prefHeight="238.0" prefWidth="800.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" upperBound="110.0" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </AreaChart>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="70.0" layoutY="244.0" prefHeight="68.0" prefWidth="821.0" text="Key Dates Timeline" translateX="-70.0" translateY="-10.0">
+                      <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="-20.0" layoutY="364.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="156.0" prefHeight="176.0" prefWidth="170.0" text="Search Group Activity Ranking" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <TableView prefHeight="151.0" prefWidth="167.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Ranking" />
+                                <TableColumn prefWidth="75.0" text="Search Group" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="393.0" layoutY="366.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="157.0" prefHeight="172.0" prefWidth="157.0" text="Keyword Ranking" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="102.0" prefWidth="588.0">
+                          <children>
+                            <TableView prefHeight="147.0" prefWidth="194.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Ranking" />
+                                <TableColumn prefWidth="75.0" text="Keyword" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="171.0" layoutY="366.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="197.0" prefHeight="172.0" prefWidth="197.0" text="Search Group Activity Share" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <PieChart id="PieChart" />
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="579.0" layoutY="366.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="197.0" prefHeight="172.0" prefWidth="197.0" text="Keyword Share" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <PieChart id="PieChart" />
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                  </children>
+                </AnchorPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Correlations">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <AnchorPane id="AnchorPane" layoutX="18.0" layoutY="19.0" minHeight="534.0" prefHeight="534.0" prefWidth="827.0">
+                  <children>
+                    <MenuButton layoutX="351.0" layoutY="930.0" mnemonicParsing="false" text="Select Search Group" translateX="-350.0" translateY="-930.0">
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Global" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 1" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 2" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 3" />
+                      </items>
+                    </MenuButton>
+                    <MenuButton layoutX="351.0" layoutY="930.0" mnemonicParsing="false" text="Time Scale" translateX="-180.0" translateY="-930.0">
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Global" />
+                        <MenuItem mnemonicParsing="false" text="Month" />
+                        <MenuItem mnemonicParsing="false" text="Week" />
+                        <MenuItem mnemonicParsing="false" text="Day" />
+                      </items>
+                    </MenuButton>
+                    <TitledPane animated="false" layoutX="35.0" layoutY="128.0" minWidth="722.0" prefHeight="144.0" prefWidth="827.0" text="Search Group Activity Monitor" translateX="-35.0" translateY="-90.0">
+                      <content>
+                        <AreaChart id="AreaChartNxN" animated="false" minHeight="90.0" prefHeight="90.0" prefWidth="824.0">
+                          <xAxis>
+                            <NumberAxis side="BOTTOM" upperBound="110.0" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </AreaChart>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="70.0" layoutY="202.0" prefHeight="50.0" prefWidth="827.0" text="Key Dates Timeline" translateX="-70.0" translateY="-10.0">
+                      <content>
+                        <HBox prefHeight="100.0" prefWidth="200.0" />
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="-16.0" layoutY="434.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="262.0" prefWidth="311.9998779296875" text="Keyword &amp; Location Correlations" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <TableView prefHeight="105.0" prefWidth="431.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Ranking" />
+                                <TableColumn prefWidth="75.0" text="Keyword" />
+                                <TableColumn prefWidth="75.0" text="Location" />
+                                <TableColumn prefWidth="75.0" text="Count" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="402.0" layoutY="436.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="262.0" prefWidth="309.0" text="Keyword &amp; Group Correlations" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="102.0" prefWidth="588.0">
+                          <children>
+                            <TableView prefHeight="103.0" prefWidth="404.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Ranking" />
+                                <TableColumn prefWidth="75.0" text="User Name" />
+                                <TableColumn prefWidth="75.0" text="Group" />
+                                <TableColumn prefWidth="75.0" text="Count" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="-15.0" layoutY="280.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="262.0" prefHeight="144.0" prefWidth="404.0" text="Keyword &amp; Location Correlation Chart" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <BarChart minHeight="119.0" prefHeight="119.0" prefWidth="401.0">
+                              <xAxis>
+                                <CategoryAxis side="BOTTOM">
+                                  <categories>
+                                    <FXCollections fx:factory="observableArrayList" />
+                                  </categories>
+                                </CategoryAxis>
+                              </xAxis>
+                              <yAxis>
+                                <NumberAxis side="LEFT" />
+                              </yAxis>
+                            </BarChart>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="403.0" layoutY="280.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="262.0" prefHeight="144.0" prefWidth="404.0" text="Keyword &amp; Group Correlation Chart" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <BarChart minHeight="119.0" prefHeight="119.0" prefWidth="401.0">
+                              <xAxis>
+                                <CategoryAxis side="BOTTOM">
+                                  <categories>
+                                    <FXCollections fx:factory="observableArrayList" />
+                                  </categories>
+                                </CategoryAxis>
+                              </xAxis>
+                              <yAxis>
+                                <NumberAxis side="LEFT" />
+                              </yAxis>
+                            </BarChart>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                  </children>
+                </AnchorPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Influencers &amp; Sentiment">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <children>
+                <AnchorPane id="AnchorPane" layoutX="15.0" layoutY="18.0" minHeight="523.0" prefHeight="523.0" prefWidth="847.0">
+                  <children>
+                    <MenuButton layoutX="353.0" layoutY="930.0" mnemonicParsing="false" text="Select Search Group" translateX="-350.0" translateY="-930.0">
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Global" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 1" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 2" />
+                        <MenuItem mnemonicParsing="false" text="Search Group 3" />
+                      </items>
+                    </MenuButton>
+                    <TitledPane animated="false" layoutX="37.0" layoutY="119.0" minWidth="722.0" prefHeight="166.0" prefWidth="844.0" text="Search Group Sentiment Monitor" translateX="-35.0" translateY="-90.0">
+                      <content>
+                        <BarChart verticalGridLinesVisible="false">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM">
+                              <categories>
+                                <FXCollections fx:factory="observableArrayList" />
+                              </categories>
+                            </CategoryAxis>
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="-18.0" layoutY="423.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="262.0" prefWidth="309.0" text="Top Influencers" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <TableView prefHeight="105.0" prefWidth="431.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Ranking" />
+                                <TableColumn prefWidth="75.0" text="User Name" />
+                                <TableColumn prefWidth="75.0" text="Most Active In" />
+                                <TableColumn prefWidth="75.0" text="Count" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="439.0" layoutY="423.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="262.0" prefWidth="306.0" text="Top Posters" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <TableView prefHeight="105.0" prefWidth="431.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Ranking" />
+                                <TableColumn prefWidth="75.0" text="User Name" />
+                                <TableColumn prefWidth="75.0" text="Most Active In" />
+                                <TableColumn prefWidth="75.0" text="Count" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="-20.0" layoutY="259.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="262.0" prefWidth="412.0" text="Influencers Pulse" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <LineChart id="LineChart" minHeight="105.0" prefHeight="106.0" prefWidth="409.0">
+                              <xAxis>
+                                <CategoryAxis side="BOTTOM">
+                                  <categories>
+                                    <FXCollections fx:factory="observableArrayList" />
+                                  </categories>
+                                </CategoryAxis>
+                              </xAxis>
+                              <yAxis>
+                                <NumberAxis side="LEFT" />
+                              </yAxis>
+                            </LineChart>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutX="438.0" layoutY="259.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="262.0" prefWidth="388.0" text="Posters Pulse" translateX="20.0" translateY="-30.0">
+                      <content>
+                        <HBox prefHeight="104.0" prefWidth="305.0">
+                          <children>
+                            <LineChart id="LineChart" minHeight="105.0" prefHeight="106.0" prefWidth="385.0">
+                              <xAxis>
+                                <CategoryAxis side="BOTTOM">
+                                  <categories>
+                                    <FXCollections fx:factory="observableArrayList" />
+                                  </categories>
+                                </CategoryAxis>
+                              </xAxis>
+                              <yAxis>
+                                <NumberAxis side="LEFT" />
+                              </yAxis>
+                            </LineChart>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                  </children>
+                </AnchorPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab id="" text="Search Around">
+          <content>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+              <children>
+                <AnchorPane id="AnchorPane" minHeight="464.0" prefHeight="464.0">
+                  <children>
+                    <Button mnemonicParsing="false" text="Search" translateX="20.0" translateY="20.0" />
+                    <TitledPane animated="false" layoutY="153.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="597.0" text="Select Search Group" translateX="20.0" translateY="-60.0">
+                      <content>
+                        <HBox prefHeight="102.0" prefWidth="588.0">
+                          <children>
+                            <ListView prefHeight="101.0" prefWidth="588.0" />
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <TitledPane animated="false" layoutY="256.0" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="248.0" prefWidth="598.0" text="Search Results" translateX="20.0" translateY="-20.0">
+                      <content>
+                        <HBox prefHeight="102.0" prefWidth="588.0">
+                          <children>
+                            <TableView prefHeight="103.0" prefWidth="594.0">
+                              <columns>
+                                <TableColumn prefWidth="75.0" text="Search Group" />
+                                <TableColumn prefWidth="75.0" text="Source API" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </HBox>
+                      </content>
+                    </TitledPane>
+                    <Text layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Range" translateX="20.0" translateY="-475.0" />
+                    <Text layoutY="549.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From" translateX="100.0" translateY="-488.0" />
+                    <Text layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To" translateX="200.0" translateY="-503.0" />
+                    <TextField layoutX="28.0" layoutY="229.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" translateX="90.0" translateY="-209.0" />
+                  </children>
+                </AnchorPane>
+                <TextField maxWidth="-Infinity" minHeight="-Infinity" prefWidth="526.0" translateX="90.0" translateY="-523.0" />
+              </children>
+            </VBox>
+          </content>
+        </Tab>
+        <Tab text="Selection Drill">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+        <Tab text="Web View">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
+  </center>
+  <top>
+    <VBox>
+      <children>
+        <MenuBar>
+          <menus>
+            <Menu mnemonicParsing="false" text="File">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Close" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+        <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="909.0" style="-fx-background-color: &#10;        linear-gradient(  #343534 20%, #242424 100%);" VBox.vgrow="ALWAYS">
+          <children>
+            <ImageView id="home" fitHeight="52.00019073486328" fitWidth="57.999908447265625" pickOnBounds="true" translateX="20.0">
+              <image>
+                <Image url="@Icon%20sets/Stylistica/128x128/home.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <ImageView id="database" fitHeight="52.00019918212638" fitWidth="57.999900817871094" pickOnBounds="true" translateX="30.0">
+              <image>
+                <Image url="@Icon%20sets/Stylistica/128x128/database.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <ImageView id="id_card" fitHeight="52.00019073486328" fitWidth="57.999908447265625" pickOnBounds="true" translateX="40.0">
+              <image>
+                <Image url="@Icon%20sets/Stylistica/128x128/id_card.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <ImageView id="mail" fitHeight="52.0" fitWidth="57.999908447265625" pickOnBounds="true" translateX="50.0">
+              <image>
+                <Image url="@Icon%20sets/Stylistica/128x128/mail.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <ImageView id="world" fitHeight="52.0" fitWidth="57.999908447265625" pickOnBounds="true" translateX="60.0">
+              <image>
+                <Image url="@Icon%20sets/Stylistica/128x128/world.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <ImageView id="folder" fitHeight="52.00018310546875" fitWidth="57.99989318847656" pickOnBounds="true">
+              <image>
+                <Image url="@Icon%20sets/Stylistica/128x128/folder.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+            <ImageView id="print" fitHeight="52.00004577636719" fitWidth="57.99989318847656" pickOnBounds="true" translateX="10.0">
+              <image>
+                <Image url="@Icon%20sets/Stylistica/128x128/print.png" preserveRatio="true" smooth="true" />
+              </image>
+            </ImageView>
+          </children>
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </HBox>
+      </children>
+    </VBox>
+  </top>
+</BorderPane>
