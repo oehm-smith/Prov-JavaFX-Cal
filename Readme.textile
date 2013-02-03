@@ -1,0 +1,10 @@
+Eclipse project.
+
+This project is the building up of a JavaFX based on work Gary and Eric have done already.  They need help with the timeline GUI item that shows days/weeks/months/years in graphical element and then chart above displays data using the same time period shown.  The GUI has a timescale (drop-down) which when changed will change the timeline and graph displayed.  The Timeline also has buttons to advance prev and next on tha
+t scale (eg. days, weeks, months, years).  And perhaps also has a drop down of those so you can jump to specific ones.
+
+Initially (first commit) I concentrated on the data to be able to drive this.  This is not the proper datasource as the others are building that.  I simply have a CSV file that is read in.  I have a Db class to query this data - specifically to query dates and date ranges.  All that part is now working with extensive unit tests to verify.
+
+Initially (first commits) this is driven by unit tests under src/test/java.
+
+Soon will have JavaFX interface showing the data (initially there is one there but its devoid of any data).
