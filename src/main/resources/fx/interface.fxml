@@ -11,8 +11,8 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
-
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="909.0" xmlns:fx="http://javafx.com/fxml" fx:controller="fx.FxController">
+<!--   fx:controller="fx.FxController"  -->
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="685.0" prefWidth="909.0" fx:controller="view.View" xmlns:fx="http://javafx.com/fxml">
   <center>
     <TabPane tabClosingPolicy="ALL_TABS" BorderPane.alignment="TOP_LEFT">
       <tabs>
@@ -26,7 +26,7 @@
                       <content>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                           <children>
-                            <TableView onDragDetected="#dragDetected" prefHeight="101.0" prefWidth="804.0">
+                            <TableView prefHeight="101.0" prefWidth="804.0">
                               <columns>
                                 <TableColumn prefWidth="75.0" text="Alert Level" />
                                 <TableColumn prefWidth="75.0" text="Search Group" />
@@ -48,9 +48,9 @@
                         </AreaChart>
                       </content>
                     </TitledPane>
-                    <MenuButton fx:id="dropdownTimeScaleId" layoutX="0.0" layoutY="495.0" mnemonicParsing="false" onMouseClicked="#onHandleTimeScaleEvent" text="Time Scale" translateX="20.0" translateY="-340.0">
+                    <MenuButton fx:id="dropdownTimeScaleId" layoutX="0.0" layoutY="495.0" mnemonicParsing="false" text="Time Scale" translateX="20.0" translateY="-340.0">
                       <items>
-                        <MenuItem mnemonicParsing="false" text="Global" onAction="#onChange"/>
+                        <MenuItem mnemonicParsing="false" text="Global" />
                         <MenuItem mnemonicParsing="false" text="Month" />
                         <MenuItem mnemonicParsing="false" text="Week" />
                         <MenuItem mnemonicParsing="false" text="Day" />
@@ -58,9 +58,9 @@
                     </MenuButton>
                     <TitledPane animated="false" layoutX="91.0" layoutY="470.0" prefHeight="68.0" prefWidth="804.0" text="Key Dates Timeline" translateX="-70.0" translateY="-10.0">
                       <content>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox fx:id="HBoxForTable" prefHeight="100.0" prefWidth="200.0">
                           <children>
-                            <TableView fx:id="tableTimelineId" prefHeight="42.0" prefWidth="800.0">
+                            <TableView id="" fx:id="tableTimeline" prefHeight="42.0" prefWidth="800.0">
                               <columns>
                                 <TableColumn prefWidth="75.0" text="Column X" />
                                 <TableColumn prefWidth="75.0" text="Column X" />
@@ -70,7 +70,7 @@
                         </HBox>
                       </content>
                     </TitledPane>
-                    <Button layoutX="200.0" layoutY="155.0" mnemonicParsing="false" onAction="#buttonAction" text="Button" />
+                    <Button layoutX="200.0" layoutY="155.0" mnemonicParsing="false" text="Button" />
                   </children>
                 </AnchorPane>
               </children>
