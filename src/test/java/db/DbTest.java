@@ -15,16 +15,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 
-import util.TestingUtils;
-import db.Db.Bounds;
+import util.DateUtil;
 import db.csv.DataBean;
+import db.impl.DbCsv;
+import db.AbstractDb.Bounds;
 
 public class DbTest {
-	Db db = null;
+	DbCsv db = null;
 	@Rule public TestName testName = new TestName();
 	@Before
 	public void setUp() throws Exception {
-		db = new Db(DbTest.class.getResource("/db/data1.csv"));
+		db = new DbCsv(DbTest.class.getResource("/db/data1.csv"));
 		// System.out.println("DB:\n" + db.printDatabase());
 		System.out.println("-> " + testName.getMethodName());
 	}
@@ -65,7 +66,7 @@ public class DbTest {
 	// Now test the querying (date querying only)
 	@Test
 	public void testSearchSingle() {
-		Date d = TestingUtils.buildDate(2012, Calendar.JANUARY, 1);
+		Date d = DateUtil.buildDate(2012, Calendar.JANUARY, 1);
 		List<DataBean> list = db.querySingle(d);
 		assertNotNull(list);
 		assertEquals(1, list.size());
@@ -73,16 +74,16 @@ public class DbTest {
 
 	@Test
 	public void testSearchSingleDoesntExist() {
-		Date d = TestingUtils.buildDate(2011, Calendar.JANUARY, 1);
-		List<DataBean> list = db.querySingle(d, Db.Bounds.STRICT);
+		Date d = DateUtil.buildDate(2011, Calendar.JANUARY, 1);
+		List<DataBean> list = db.querySingle(d, AbstractDb.Bounds.STRICT);
 		assertNotNull(list);
 		assertEquals(0, list.size());
 	}
 
 	@Test
 	public void testSearchRangeBothExist() {
-		Date d1 = TestingUtils.buildDate(2012, Calendar.JANUARY, 1);
-		Date d2 = TestingUtils.buildDate(2012, Calendar.MARCH, 1);
+		Date d1 = DateUtil.buildDate(2012, Calendar.JANUARY, 1);
+		Date d2 = DateUtil.buildDate(2012, Calendar.MARCH, 1);
 		List<DataBean> list = db.queryRange(d1, d2);
 		assertNotNull(list);
 		assertEquals(12, list.size());
@@ -90,16 +91,16 @@ public class DbTest {
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testSearchRangeDatesWrongOrder() {
-		Date d2 = TestingUtils.buildDate(2012, Calendar.JANUARY, 1);
-		Date d1 = TestingUtils.buildDate(2012, Calendar.MARCH, 1);
+		Date d2 = DateUtil.buildDate(2012, Calendar.JANUARY, 1);
+		Date d1 = DateUtil.buildDate(2012, Calendar.MARCH, 1);
 		List<DataBean> list = db.queryRange(d1, d2);
 		assertNotNull(list);
 		assertEquals(12, list.size());
 	}
 	@Test
 	public void testSearchRangeLowerExists() {
-		Date d1 = TestingUtils.buildDate(2012, Calendar.JANUARY, 1);
-		Date d2 = TestingUtils.buildDate(2012, Calendar.MARCH, 2);
+		Date d1 = DateUtil.buildDate(2012, Calendar.JANUARY, 1);
+		Date d2 = DateUtil.buildDate(2012, Calendar.MARCH, 2);
 		List<DataBean> list = db.queryRange(d1, d2);
 		assertNotNull(list);
 		assertEquals(12, list.size());
@@ -107,8 +108,8 @@ public class DbTest {
 	
 	@Test
 	public void testSearchRangeUpperExists() {
-		Date d1 = TestingUtils.buildDate(2012, Calendar.JANUARY, 11);
-		Date d2 = TestingUtils.buildDate(2012, Calendar.MARCH, 1);
+		Date d1 = DateUtil.buildDate(2012, Calendar.JANUARY, 11);
+		Date d2 = DateUtil.buildDate(2012, Calendar.MARCH, 1);
 		List<DataBean> list = db.queryRange(d1, d2);
 		assertNotNull(list);
 		assertEquals(2, list.size());
@@ -117,8 +118,8 @@ public class DbTest {
 	@Test
 	public void testSearchSingleCeiling() {
 		// find next one above given date (that doesn't exist in db)
-		Date d = TestingUtils.buildDate(2012, Calendar.JANUARY, 20);
-		Date ex = TestingUtils.buildDate(2012, Calendar.FEBRUARY, 1);
+		Date d = DateUtil.buildDate(2012, Calendar.JANUARY, 20);
+		Date ex = DateUtil.buildDate(2012, Calendar.FEBRUARY, 1);
 		List<DataBean> list = db.querySingle(d, Bounds.CEILING);
 		assertNotNull(list);
 		assertEquals(1, list.size());
@@ -128,8 +129,8 @@ public class DbTest {
 	@Test
 	public void testSearchSingleFloor() {
 		// find next one above given date (that doesn't exist in db)
-		Date d = TestingUtils.buildDate(2012, Calendar.JANUARY, 20);
-		Date ex = TestingUtils.buildDate(2012, Calendar.JANUARY, 10);
+		Date d = DateUtil.buildDate(2012, Calendar.JANUARY, 20);
+		Date ex = DateUtil.buildDate(2012, Calendar.JANUARY, 10);
 		List<DataBean> list = db.querySingle(d, Bounds.FLOOR);
 		assertNotNull(list);
 		assertEquals(1, list.size());

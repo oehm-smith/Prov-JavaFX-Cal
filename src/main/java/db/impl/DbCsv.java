@@ -1,4 +1,4 @@
-package db;
+package db.impl;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -9,24 +9,23 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import db.AbstractDb;
 import db.csv.Csv;
 import db.csv.DataBean;
 
-public class Db {
+/**
+ * This provides a java.util.List implementation generally and a CSV implementation specifically.
+ * 
+ * @author bsmith
+ *
+ */
+public class DbCsv extends AbstractDb {
 	/**
 	 * Sorted
 	 */
 	private List<DataBean> database = null;
 
-	public enum Bounds {
-		LOWER, // <
-		FLOOR, // <=
-		STRICT, // ==
-		CEILING, // >=
-		HIGHER // >
-	}
-
-	public Db(URL inDatabase) {
+	public DbCsv(URL inDatabase) {
 		// This is a fixed mock. Ideally the DB implementation (ie. CSV)
 		// wouldn't be hard-coded and of course, nor would the data object (ie.
 		// DataBean)
@@ -34,7 +33,7 @@ public class Db {
 		try {
 			csv = new Csv(inDatabase);
 		} catch (FileNotFoundException e) {
-			Logger.getLogger(Db.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(DbCsv.class.getName()).log(Level.SEVERE, null, e);
 		}
 		database = csv.getDataList();
 		printDatabase();
@@ -42,10 +41,18 @@ public class Db {
 		printDatabase();
 	}
 
+	/* (non-Javadoc)
+	 * @see db.impl.Db#getDatabase()
+	 */
+	@Override
 	public List<DataBean> getDatabase() {
 		return database;
 	}
 
+	/* (non-Javadoc)
+	 * @see db.impl.Db#printDatabase()
+	 */
+	@Override
 	public String printDatabase() {
 		StringBuffer sb = new StringBuffer();
 		for (DataBean b : database) {
@@ -54,13 +61,10 @@ public class Db {
 		return sb.toString();
 	}
 
-	/**
-	 * 
-	 * @param d
-	 * @param bound
-	 * @return list containing the DataBeans with the given date matched according to the Bounds. Will return an empty
-	 *         list if no matches.
+	/* (non-Javadoc)
+	 * @see db.impl.Db#querySingle(java.util.Date, db.Db.Bounds)
 	 */
+	@Override
 	public List<DataBean> querySingle(Date d, Bounds bound) {
 		List<DataBean> list = new ArrayList<DataBean>();
 		int searchIndex = Collections.binarySearch(database, new DataBean(d));
@@ -72,24 +76,10 @@ public class Db {
 		return list;
 	}
 
-	/**
-	 * 
-	 * @param d
-	 * @return list containing the DataBeans with the given date matched according to the Bounds.STRICT bound - if value
-	 *         exists it will be returned else the empty list.
+	/* (non-Javadoc)
+	 * @see db.impl.Db#queryRange(java.util.Date, java.util.Date, db.Db.Bounds, db.Db.Bounds)
 	 */
-	public List<DataBean> querySingle(Date d) {
-		return querySingle(d, Bounds.CEILING);
-	}
-
-	/**
-	 * 
-	 * @param lower - lower date to search from
-	 * @param upper - upper date to search to
-	 * @param lbounds - bounds on lower date
-	 * @param ubounds - bounds on upper date
-	 * @return list of DataBeans between and including the two dates wrt the lbound and ubound bounds. Or empty list if no matches.
-	 */
+	@Override
 	public List<DataBean> queryRange(Date lower, Date upper, Bounds lbound, Bounds ubound) {
 		if (lower.getTime() > upper.getTime()) {
 			throw new IllegalArgumentException("First date must be earlier in time than 2nd");
@@ -116,16 +106,7 @@ public class Db {
 	}
 
 	/**
-	 * 
-	 * @param lower - lower date to search from
-	 * @param upper - upper date to search to
-	 * @return list of DataBeans between and including the two dates.  The lbound defaults to CEILING and the ubound defaults to FLOOR. Or empty list if no matches.
-	 */
-	public List<DataBean> queryRange(Date lower, Date upper) {
-		return queryRange(lower,upper,Bounds.CEILING, Bounds.FLOOR);
-	}
-	
-	/**
+	 * Helper function for implemenations.
 	 * 
 	 * @param index
 	 * @return if index is outside range of the database list.
@@ -142,6 +123,8 @@ public class Db {
 	 *            etc.. However if the bounds is STRICT then we don't want to return any index - we'll return index,
 	 *            which is negative to indicate this. Similarly if there is no HIGHER or LOWER then this will also
 	 *            return index, which again is negative, to indicate this.
+	 *            
+	 *            Its protected so that it can be unit tested.
 	 * 
 	 * @param bounds to say what to do when the index is negative.
 	 * @param list is the list the index applies to

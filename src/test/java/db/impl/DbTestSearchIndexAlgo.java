@@ -1,4 +1,4 @@
-package db;
+package db.impl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,9 +11,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 
+import db.AbstractDb;
+import db.DbTest;
+import db.impl.DbCsv;
+
 public class DbTestSearchIndexAlgo {
 	List<Integer> list = null;
-	Db db = null;
+	DbCsv db = null;
 
 	@Rule
 	public TestName testName = new TestName();
@@ -21,7 +25,7 @@ public class DbTestSearchIndexAlgo {
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("-> " + testName.getMethodName());
-		db = new Db(DbTest.class.getResource("/db/data1.csv")); // don't actually need the data
+		db = new DbCsv(DbTest.class.getResource("/db/data1.csv")); // don't actually need the data
 
 		list = new ArrayList<>();
 		// 1,5,9,13,17,21
@@ -35,7 +39,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 1;
 		int expectedElIndex = 0;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.STRICT, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.STRICT, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -44,7 +48,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 1;
 		int expectedElIndex = 0;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.FLOOR, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.FLOOR, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -53,7 +57,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 1;
 		int expectedElIndex = 0;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.CEILING, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.CEILING, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -62,7 +66,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 5;
 		int expectedElIndex = 1;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.STRICT, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.STRICT, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -71,7 +75,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 5;
 		int expectedElIndex = 1;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.FLOOR, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.FLOOR, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -80,7 +84,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 5;
 		int expectedElIndex = 1;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.CEILING, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.CEILING, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -89,7 +93,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 9;
 		int expectedElIndex = 2;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.STRICT, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.STRICT, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -98,7 +102,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 9;
 		int expectedElIndex = 2;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.FLOOR, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.FLOOR, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -107,7 +111,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 9;
 		int expectedElIndex = 2;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.CEILING, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.CEILING, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -116,7 +120,7 @@ public class DbTestSearchIndexAlgo {
 		Integer elToFind = 2;
 		int expectedElIndex = -2;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.STRICT, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.STRICT, list);
 		assertEquals(expectedElIndex, actualElIndex);
 	}
 	
@@ -126,7 +130,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = 0;
 		Integer expectedElement = 1;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.FLOOR, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.FLOOR, list);
 		assertEquals(expectedElIndex, actualElIndex);
 		assertEquals(expectedElement, list.get(actualElIndex));
 	}
@@ -137,7 +141,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = 1;
 		Integer expectedElement = 5;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.HIGHER, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.HIGHER, list);
 		assertEquals(expectedElIndex, actualElIndex);
 		assertEquals(expectedElement, list.get(actualElIndex));
 	}
@@ -148,7 +152,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = 4;
 		Integer expectedElement = 17;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.FLOOR, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.FLOOR, list);
 		assertEquals(expectedElIndex, actualElIndex);
 		assertEquals(expectedElement, list.get(actualElIndex));
 	}
@@ -159,7 +163,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = 5;
 		Integer expectedElement = 21;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.HIGHER, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.HIGHER, list);
 		assertEquals(expectedElIndex, actualElIndex);
 		assertEquals(expectedElement, list.get(actualElIndex));
 	}
@@ -170,7 +174,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = 5;
 		Integer expectedElement = 21;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.LOWER, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.LOWER, list);
 		assertEquals(expectedElIndex, actualElIndex);
 		assertEquals(expectedElement, list.get(actualElIndex));
 	}
@@ -181,7 +185,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = -7;
 //		Integer expectedElement = 21;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.HIGHER, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.HIGHER, list);
 		assertEquals(expectedElIndex, actualElIndex);
 		//assertEquals(expectedElement, list.get(actualElIndex));
 	}
@@ -192,7 +196,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = -7;
 //		Integer expectedElement = 21;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.HIGHER, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.HIGHER, list);
 		assertEquals(expectedElIndex, actualElIndex);
 		//assertEquals(expectedElement, list.get(actualElIndex));
 	}
@@ -203,7 +207,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = 0;
 		Integer expectedElement = 1;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.HIGHER, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.HIGHER, list);
 		assertEquals(expectedElIndex, actualElIndex);
 		assertEquals(expectedElement, list.get(actualElIndex));
 	}
@@ -214,7 +218,7 @@ public class DbTestSearchIndexAlgo {
 		int expectedElIndex = -1;
 //		Integer expectedElement = 1;
 		int searchIndex = Collections.binarySearch(list, elToFind);
-		int actualElIndex = db.selectIndexWRTBounds(searchIndex, Db.Bounds.LOWER, list);
+		int actualElIndex = db.selectIndexWRTBounds(searchIndex, AbstractDb.Bounds.LOWER, list);
 		assertEquals(expectedElIndex, actualElIndex);
 //		assertEquals(expectedElement, list.get(actualElIndex));
 	}

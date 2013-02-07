@@ -50,6 +50,7 @@ public class DataBean implements Comparable<DataBean> {
 		return dateAtMidnight;
 	}
 	public void setDate(String dateString) {
+//		System.out.println("DataBean - dateString:"+dateString);
 		this.dateString = dateString;
 		this.date = dateValue();
 		this.dateAtMidnight = dateValueAtMidnight();
@@ -58,6 +59,7 @@ public class DataBean implements Comparable<DataBean> {
 		return faceBook;
 	}
 	public void setFaceBook(int faceBook) {
+//		System.out.format("setFacebook:%d\n",faceBook);
 		this.faceBook = faceBook;
 	}
 	public int getTwitter() {
@@ -89,7 +91,6 @@ public class DataBean implements Comparable<DataBean> {
 		if (!(obj instanceof DataBean)) {
 			return false;
 		}
-		System.out.println("DataBean equals");
 		DataBean dbobj = (DataBean) obj;
 		// to use just getDate() (ie. has time) requires that this class deals with time - the default will be the time the Date create happens.
 		return (dbobj.getDateAtMidnight().equals(getDateAtMidnight()));
