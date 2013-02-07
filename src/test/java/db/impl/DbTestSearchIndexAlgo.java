@@ -13,11 +13,11 @@ import org.junit.rules.TestName;
 
 import db.AbstractDb;
 import db.DbTest;
-import db.impl.DbCsv;
+import db.impl.Db;
 
 public class DbTestSearchIndexAlgo {
 	List<Integer> list = null;
-	DbCsv db = null;
+	Db db = null;
 
 	@Rule
 	public TestName testName = new TestName();
@@ -25,7 +25,7 @@ public class DbTestSearchIndexAlgo {
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("-> " + testName.getMethodName());
-		db = new DbCsv(DbTest.class.getResource("/db/data1.csv")); // don't actually need the data
+		db = new Db(DbTest.class.getResource("/db/data1.csv")); // don't actually need the data
 
 		list = new ArrayList<>();
 		// 1,5,9,13,17,21

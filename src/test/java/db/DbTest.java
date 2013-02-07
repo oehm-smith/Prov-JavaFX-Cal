@@ -17,15 +17,15 @@ import org.junit.rules.TestName;
 
 import util.DateUtil;
 import db.csv.DataBean;
-import db.impl.DbCsv;
+import db.impl.Db;
 import db.AbstractDb.Bounds;
 
 public class DbTest {
-	DbCsv db = null;
+	Db db = null;
 	@Rule public TestName testName = new TestName();
 	@Before
 	public void setUp() throws Exception {
-		db = new DbCsv(DbTest.class.getResource("/db/data1.csv"));
+		db = new Db(DbTest.class.getResource("/db/data1.csv"));
 		// System.out.println("DB:\n" + db.printDatabase());
 		System.out.println("-> " + testName.getMethodName());
 	}

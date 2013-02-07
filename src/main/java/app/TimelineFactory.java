@@ -2,7 +2,7 @@ package app;
 
 import java.util.Date;
 
-import db.impl.DbCsv;
+import db.impl.Db;
 
 import app.timeline.DayTimeline;
 import app.timeline.GlobalTimeline;
@@ -10,9 +10,9 @@ import app.timeline.MonthTimeline;
 import app.timeline.WeekTimeline;
 
 public class TimelineFactory {
-	DbCsv db;
+	Db db;
 
-	public TimelineFactory(DbCsv db) {
+	public TimelineFactory(Db db) {
 		this.db = db;
 	}
 

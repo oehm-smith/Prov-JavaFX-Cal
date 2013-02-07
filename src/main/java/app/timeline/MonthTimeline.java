@@ -10,16 +10,16 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import app.Timeline;
 import db.csv.DataBean;
-import db.impl.DbCsv;
+import db.impl.Db;
 
 public class MonthTimeline implements Timeline {
-	private DbCsv db;
+	private Db db;
 	private Calendar startDateCal = null;
 	private int maxValue = 0;
 	
 	final static SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy");// dd/M/yyyy");
 
-	public MonthTimeline(Date startDate, DbCsv db) {
+	public MonthTimeline(Date startDate, Db db) {
 		this.db=db;
 		startDateCal = Calendar.getInstance();
 		startDateCal.setTime(startDate);

@@ -11,13 +11,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.ModelImpl;
 import view.View;
-import db.impl.DbCsv;
+import db.impl.Db;
 
 public class Main extends Application {
 
 	private ModelImpl model;
 	private View view;
-	private DbCsv db;
+	private Db db;
 	private TimelineFactory timeline;
 
 	public Main() {
@@ -27,7 +27,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		model = new ModelImpl();
 		// TODO - need different way of sourcing the data
-		db = new DbCsv(Main.class.getResource("/db/data2.csv"));
+		db = new Db(Main.class.getResource("/db/data2.csv"));
 		timeline = new TimelineFactory(db);
 		// view = new View(model, timeline);// - NUP Constructed by the JavaFX runtime as set as the FXML Controller
 		// NUP The Model and Timeline are Injected
