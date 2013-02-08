@@ -17,7 +17,7 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import model.ModelImpl;
 import util.DateUtil;
 import app.Timeline;
@@ -45,8 +45,7 @@ public class View implements Initializable, ViewContract {
 	@FXML
 	private Label labelTimeLine;
 	@FXML
-	private HBox areaChartBox;
-	private AreaChart<Number,Number> areaChart;
+	private Pane areaChartBox;
 
 	public View() {
 		System.out.println("View()");
@@ -131,27 +130,38 @@ public class View implements Initializable, ViewContract {
 
 	private void drawChart() {
 		List<List<XYChart.Data<Number, Number>>> data = timeline.getChartData();
-		if (data == null) 
+		if (data == null)
 			return;
+
 		XYChart.Series<Number, Number> facebookSeries = new XYChart.Series<Number, Number>();
 		XYChart.Series<Number, Number> twitterSeries = new XYChart.Series<Number, Number>();
 		XYChart.Series<Number, Number> youtubeSeries = new XYChart.Series<Number, Number>();
 		facebookSeries.getData().addAll(data.get(0));
 		facebookSeries.setName("Facebook");
+		System.out.println("Print facebook data:");
+		for (XYChart.Data<Number,Number> d :data.get(0)  ){
+			System.out.format("  %d, %d\n",d.getXValue(),d.getYValue());
+		}
 		twitterSeries.getData().addAll(data.get(1));
 		twitterSeries.setName("Twitter");
 		youtubeSeries.getData().addAll(data.get(2));
 		youtubeSeries.setName("YouTube");
-		final NumberAxis xAxis = new NumberAxis (1, timeline.getColumns().size(), 1);
-		final NumberAxis yAxis = new NumberAxis (0, timeline.getChartDataMaxValue(), 10);
-		System.out.format("Area chart:%s, xaxis:%s\n",areaChart,null);
-//		areaChart.getXAxis().setAutoRanging(false);
-//		areaChart.getYAxis().setAutoRanging(false);
-		areaChart = new AreaChart<>(xAxis, yAxis);
-		areaChart.getData().addAll(facebookSeries,twitterSeries,youtubeSeries);
-//		areaChart.layout();
-		areaChartBox.getChildren().remove(0, areaChartBox.getChildren().size());
+		final NumberAxis xAxis = new NumberAxis(1, timeline.getColumns().size(), 1);
+		final NumberAxis yAxis = new NumberAxis(0, timeline.getChartDataMaxValue(), 10);
+		AreaChart<Number, Number> areaChart = new AreaChart<>(xAxis, yAxis);
+		areaChart.setId("achart");
+		areaChart.setMinSize(AreaChart.USE_COMPUTED_SIZE,AreaChart.USE_COMPUTED_SIZE);
+		areaChart.setPrefSize(AreaChart.USE_COMPUTED_SIZE,AreaChart.USE_COMPUTED_SIZE);
+		areaChart.setMaxSize(AreaChart.USE_COMPUTED_SIZE,AreaChart.USE_COMPUTED_SIZE);
+
+		System.out.format("Area chart:%s, xaxis:%s\n", areaChart, null);
+		// areaChart.getXAxis().setAutoRanging(false);
+		// areaChart.getYAxis().setAutoRanging(false);
+		areaChart.getData().addAll(facebookSeries, twitterSeries, youtubeSeries);
+		// areaChart.layout();
+		areaChartBox.getChildren().clear();
 		areaChartBox.getChildren().add(areaChart);
+//		areaChartBox.getChildren().;
 	}
 
 	private void onButtonChange(String button, ActionEvent event) {
@@ -168,4 +178,45 @@ public class View implements Initializable, ViewContract {
 			drawTimeline();
 		}
 	}
+
+	/*********************/
+	private void drawChartY() {
+		final NumberAxis xAxis = new NumberAxis(1, 31, 1);
+		final NumberAxis yAxis = new NumberAxis();
+		final AreaChart<Number, Number> ac = new AreaChart<Number, Number>(xAxis, yAxis);
+		ac.setTitle("Temperature Monitoring (in Degrees C)");
+
+		XYChart.Series<Number, Number> seriesApril = new XYChart.Series<>();
+		seriesApril.setName("April");
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(1, 4));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(3, 10));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(6, 15));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(9, 8));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(12, 5));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(15, 18));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(18, 15));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(21, 13));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(24, 19));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(27, 21));
+		seriesApril.getData().add(new XYChart.Data<Number, Number>(30, 21));
+
+		XYChart.Series<Number, Number> seriesMay = new XYChart.Series<>();
+		seriesMay.setName("May");
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(1, 20));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(3, 15));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(6, 13));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(9, 12));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(12, 14));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(15, 18));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(18, 25));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(21, 25));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(24, 23));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(27, 26));
+		seriesMay.getData().add(new XYChart.Data<Number, Number>(31, 26));
+
+		ac.getData().addAll(seriesApril, seriesMay);
+		areaChartBox.getChildren().remove(0, areaChartBox.getChildren().size());
+		areaChartBox.getChildren().add(ac);
+	}
+
 }

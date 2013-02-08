@@ -17,7 +17,7 @@ import db.csv.DataBean;
  * This provides a java.util.List implementation generally and a CSV implementation specifically.
  * 
  * @author bsmith
- *
+ * 
  */
 public class Db extends AbstractDb {
 	/**
@@ -41,7 +41,9 @@ public class Db extends AbstractDb {
 		printDatabase();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see db.impl.Db#getDatabase()
 	 */
 	@Override
@@ -49,7 +51,9 @@ public class Db extends AbstractDb {
 		return database;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see db.impl.Db#printDatabase()
 	 */
 	@Override
@@ -61,7 +65,9 @@ public class Db extends AbstractDb {
 		return sb.toString();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see db.impl.Db#querySingle(java.util.Date, db.Db.Bounds)
 	 */
 	@Override
@@ -69,14 +75,16 @@ public class Db extends AbstractDb {
 		List<DataBean> list = new ArrayList<DataBean>();
 		int searchIndex = Collections.binarySearch(database, new DataBean(d));
 		int foundIndex = selectIndexWRTBounds(searchIndex, bound, database);
-		
+
 		if (foundIndex >= 0) {
 			list.add(database.get(foundIndex));
 		}
 		return list;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see db.impl.Db#queryRange(java.util.Date, java.util.Date, db.Db.Bounds, db.Db.Bounds)
 	 */
 	@Override
@@ -94,9 +102,9 @@ public class Db extends AbstractDb {
 		int foundIndexEnd = selectIndexWRTBounds(searchIndexEnd, ubound, database);
 
 		if (outOfRange(foundIndexStart) || outOfRange(foundIndexEnd)) {
-			return list;	// its empty
+			return list; // its empty
 		}
-		
+
 		System.out.format("queryRange(Date d1:%s, Date d2:%s) - i1:%d, i2:%s (i1Orig:%d, i2Orig:%d)\n", lower, upper,
 				foundIndexStart, foundIndexEnd, searchIndexStart, searchIndexEnd);
 		for (int j = foundIndexStart; j <= foundIndexEnd; j++) {
@@ -117,27 +125,45 @@ public class Db extends AbstractDb {
 
 	/**
 	 * 
-	 * @param index is the index the search calculated. It can either be an exact element (index >= 0) - this will just
-	 *            return this value if so. Or it can be a place to insert the new element to keep it sorted (index < 0 -
-	 *            insertion point is -(index + 1)). We want to return an actual existing element either HIGHER, LOWER,
-	 *            etc.. However if the bounds is STRICT then we don't want to return any index - we'll return index,
-	 *            which is negative to indicate this. Similarly if there is no HIGHER or LOWER then this will also
-	 *            return index, which again is negative, to indicate this.
-	 *            
-	 *            Its protected so that it can be unit tested.
-	 * 
-	 * @param bounds to say what to do when the index is negative.
+	 * @param index is the index the search calculated. Its as per Collections.BinarySearch(). If (index >= 0) then this
+	 *            a the search found the requested object. If (index < 0) then, as per Collections.BinarySearch() this
+	 *            index is an indication of where the object can be inserted to keep the Collection sorted. The actual
+	 *            index where it needs to be inserted is -(index + 1).
+	 * @param bounds for what to return - LOWER -> return object less than this, FLOOR -> return the object equal to or
+	 *            lower than this, CEILING -> return the object equal to or greater than this, HIGHER -> return the
+	 *            object greater than this. STRICT -> exact match required. 'this' being what's at the index (taking
+	 *            into account if the index is >= 0 or < 0).
 	 * @param list is the list the index applies to
-	 * @return int >= 0 for the index of a list element that was found according to what index that was a params and the
-	 *         bounds. Or an int < 0 indicating an element couldn't be found. This negative index is the same one that
-	 *         was passed in and can be used if need be, to insert an element that will keep the list sorted.
+	 * @return index for an element that was matched according to the Bounds. The ways to return a negative index are
+	 *         this. 1) Bounds.STRICT when no match is made, 2) Bounds.LOWER/FLOOR when no match is made and nothing is
+	 *         lower than the value that was searched for, 3) Bounds.HIGHER/CEILING when no match is made and nothing is
+	 *         higher than the value that was searched for. Otherwise a positive index is returned for a selected index.
+	 * 
+	 *         This method is protected so that it can be unit tested.
 	 */
 	protected <T> int selectIndexWRTBounds(int index, Bounds bounds, List<T> list) {
 		int origIndex = index;
 
 		if (index >= 0) {
-			return index; // exact match - bounds not required
+			switch (bounds) {
+			case LOWER:
+				if (index == 0) {
+					return -1; // indicating no match but insert at 0 (-(-1+1))
+				} else {
+					return index-1;
+				}
+			case HIGHER:
+				if (index == list.size()) {
+					return -(list.size() + 1); // indicating no match but insert at list.size()
+				} else {
+					return index+1;
+				}
+			default:
+				// exact match
+				return index;
+			}
 		}
+		// index is negative
 		if (bounds == Bounds.STRICT) {
 			return index; // no match and STRICT says not to 'look' for one higher or lower
 		}

@@ -41,6 +41,8 @@ public class Main extends Application {
 			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		Scene scene = new Scene(page);
+        scene.getStylesheets().add("/styles/styles.css");
+
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Providence FX");
 		primaryStage.show();

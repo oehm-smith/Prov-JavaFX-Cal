@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TableColumn;
 import app.Timeline;
+import db.AbstractDb.Bounds;
 import db.csv.DataBean;
 import db.impl.Db;
 
@@ -67,7 +68,7 @@ public class MonthTimeline implements Timeline {
 		chartData.add(twitterlist);
 		chartData.add(youtubelist);
 		
-		List<DataBean> list = db.queryRange(startDateCal.getTime(), endDateCal.getTime());
+		List<DataBean> list = db.queryRange(startDateCal.getTime(), endDateCal.getTime(), Bounds.CEILING, Bounds.LOWER);
 		System.out.println("-> getChartData - print from query for datarange "+startDateCal.getTime()+" -> "+endDateCal.getTime());
 		for (DataBean b : list) {
 			System.out.println("  "+b);
