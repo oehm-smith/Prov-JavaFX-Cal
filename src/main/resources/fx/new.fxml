@@ -20,7 +20,7 @@
         <padding>
           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </padding>
-        <TitledPane maxHeight="900.0" maxWidth="2000.0" minHeight="100.0" minWidth="200.0" prefHeight="200.0" prefWidth="800.0" text="One" VBox.vgrow="ALWAYS">
+        <TitledPane maxHeight="900.0" maxWidth="2000.0" minHeight="100.0" minWidth="200.0" prefHeight="200.0" prefWidth="800.0" text="Data chart" VBox.vgrow="ALWAYS">
           <VBox fx:id="areaChartBox">
             <Button fx:id="buttonDummy" mnemonicParsing="false" text="Button for fun" />
           </VBox>
@@ -33,7 +33,7 @@
             <MenuItem mnemonicParsing="false" text="Day" />
           </items>
         </MenuButton>
-        <TitledPane maxHeight="100.0" maxWidth="2000.0" minHeight="50.0" minWidth="200.0" prefHeight="200.0" prefWidth="800.0" text="Two">
+        <TitledPane maxHeight="100.0" maxWidth="2000.0" minHeight="50.0" minWidth="200.0" prefHeight="200.0" prefWidth="800.0" text="Timeline">
           <VBox fx:id="VBoxForTable">
             <AnchorPane>
               <HBox AnchorPane.leftAnchor="0.0">

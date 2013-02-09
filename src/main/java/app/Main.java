@@ -29,11 +29,7 @@ public class Main extends Application {
 		// TODO - need different way of sourcing the data
 		db = new Db(Main.class.getResource("/db/data2.csv"));
 		timeline = new TimelineFactory(db);
-		// view = new View(model, timeline);// - NUP Constructed by the JavaFX runtime as set as the FXML Controller
-		// NUP The Model and Timeline are Injected
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fx/new.fxml"));
-		// fxmlLoader.setRoot(this);
-		// fxmlLoader.setController(this);
 		Pane page = null;
 		try {
 			page = (Pane) fxmlLoader.load();// (StackPane)
@@ -41,36 +37,16 @@ public class Main extends Application {
 			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		Scene scene = new Scene(page);
-//        scene.getStylesheets().add("/styles/styles.css");
+        scene.getStylesheets().add("/styles/styles.css");
 
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("Providence FX");
+		primaryStage.setTitle("Calendar Timeline");
 		primaryStage.show();
 
 		View controller = (View) fxmlLoader.getController();
 		controller.setModel(model);
 		controller.setTimeline(timeline);
 		controller.go();
-
-		// try {
-		// fxmlLoader.load();
-		// } catch (IOException exception) {
-		// Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-		// }
-
-		// try {
-		// FXMLLoader fxmlLoader = new FXMLLoader();
-		// Pane page = fxmlLoader.load(Main.class.getResource("/fx/interface.fxml"));// (StackPane)
-		// View controller = (View) FXMLLoader.getController();
-		// controller.setModel(model);
-		// controller.setTimeline(timeline);
-		// Scene scene = new Scene(page);
-		// primaryStage.setScene(scene);
-		// primaryStage.setTitle("FXML is Simple");
-		// primaryStage.show();
-		// } catch (Exception ex) {
-		// Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-		// }
 	}
 
 	public static void main(String[] args) {
