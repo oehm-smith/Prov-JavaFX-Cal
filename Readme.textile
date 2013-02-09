@@ -19,7 +19,9 @@ h2. Development
 *(I just found "http://www.zenjava.com/2012/11/24/from-zero-to-javafx-in-5-minutes/":http://www.zenjava.com/2012/11/24/from-zero-to-javafx-in-5-minutes/ and will be using it in future projects)* 
 
 h3. Unit Tests
+
 This was develeoped using TDD and the unit tests can be found under src/test/java.  There is a providenceFx/AllTest.java to run all the tests.
+
 h3. Connection with JavaFx
 
 There is an interface.fxml file that sets view.View as the controller.  Each interface object in the fxml has an fx:id attribute.  I use this to keep a reference to the object in the Controller:
