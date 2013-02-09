@@ -31,7 +31,7 @@ public class Main extends Application {
 		timeline = new TimelineFactory(db);
 		// view = new View(model, timeline);// - NUP Constructed by the JavaFX runtime as set as the FXML Controller
 		// NUP The Model and Timeline are Injected
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fx/interface.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fx/new.fxml"));
 		// fxmlLoader.setRoot(this);
 		// fxmlLoader.setController(this);
 		Pane page = null;
@@ -41,7 +41,7 @@ public class Main extends Application {
 			Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		Scene scene = new Scene(page);
-        scene.getStylesheets().add("/styles/styles.css");
+//        scene.getStylesheets().add("/styles/styles.css");
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Providence FX");

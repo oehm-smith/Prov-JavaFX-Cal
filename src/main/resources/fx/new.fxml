@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+<!-- fx:controller="fx.FxController" -->
+
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml" fx:controller="view.View">
+  <center>
+    <AnchorPane>
+      <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <padding>
+          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+        <TitledPane maxHeight="900.0" maxWidth="2000.0" minHeight="100.0" minWidth="200.0" prefHeight="200.0" prefWidth="800.0" text="One" VBox.vgrow="ALWAYS">
+          <VBox fx:id="areaChartBox">
+            <Button fx:id="buttonDummy" mnemonicParsing="false" text="Button for fun" />
+          </VBox>
+        </TitledPane>
+        <MenuButton fx:id="dropdownTimeScaleId" mnemonicParsing="false" text="Time Scale">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Global" />
+            <MenuItem mnemonicParsing="false" text="Month" />
+            <MenuItem mnemonicParsing="false" text="Week" />
+            <MenuItem mnemonicParsing="false" text="Day" />
+          </items>
+        </MenuButton>
+        <TitledPane maxHeight="100.0" maxWidth="2000.0" minHeight="50.0" minWidth="200.0" prefHeight="200.0" prefWidth="800.0" text="Two">
+          <VBox fx:id="VBoxForTable">
+            <AnchorPane>
+              <HBox AnchorPane.leftAnchor="0.0">
+                <Button fx:id="buttonPrevious" mnemonicParsing="false" text="Previous" />
+                <Button fx:id="buttonNext" mnemonicParsing="false" text="Next" />
+              </HBox>
+              <HBox AnchorPane.rightAnchor="0.0">
+                <Label fx:id="labelTimeLine" text="Timeline Label" />
+              </HBox>
+            </AnchorPane>
+            <HBox fx:id="hboxTables">
+              <TableView id="" fx:id="tableTimeline" maxHeight="-1.0" minHeight="-1.0">
+                <columns>
+                  <TableColumn text="Column X" />
+                  <TableColumn text="Column X" />
+                </columns>
+              </TableView>
+            </HBox>
+          </VBox>
+        </TitledPane>
+      </VBox>
+    </AnchorPane>
+  </center>
+</BorderPane>
