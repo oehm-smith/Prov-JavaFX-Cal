@@ -39,6 +39,10 @@ public class Main extends Application {
 		Scene scene = new Scene(page);
         scene.getStylesheets().add("/styles/styles.css");
 
+        primaryStage.setMaxHeight(800);
+        primaryStage.setMinHeight(385);
+        primaryStage.setMaxWidth(1200);
+        primaryStage.setMinWidth(880);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Calendar Timeline");
 		primaryStage.show();

@@ -19,6 +19,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import model.ModelImpl;
 import util.DateUtil;
 import app.Timeline;
@@ -134,7 +136,7 @@ public class View implements Initializable, ViewContract {
 	private void drawKeyDatesTimeline() {
 		// / now build model from timeline
 		List<TableColumn<Integer, String>> columns = timeline.getColumns();
-		double tableWidth = hboxTables.getWidth()-20;
+		double tableWidth = hboxTables.getWidth() - 20;
 		double colWidth = ((tableWidth) / (columns.size()));
 		System.out.format("Tablewidth:%f, cols:%d, col widths:%f\n", tableWidth, columns.size(), colWidth);
 		tableTimeline.getColumns().remove(0, tableTimeline.getColumns().size());
@@ -150,7 +152,9 @@ public class View implements Initializable, ViewContract {
 		List<List<XYChart.Data<Number, Number>>> data = timeline.getChartData();
 		if (data == null)
 			return;
-
+		if (areaChartBox == null)
+			return;
+		
 		XYChart.Series<Number, Number> facebookSeries = new XYChart.Series<Number, Number>();
 		XYChart.Series<Number, Number> twitterSeries = new XYChart.Series<Number, Number>();
 		XYChart.Series<Number, Number> youtubeSeries = new XYChart.Series<Number, Number>();
@@ -163,14 +167,15 @@ public class View implements Initializable, ViewContract {
 		final NumberAxis xAxis = new NumberAxis(1, timeline.getColumns().size(), 1);
 		final NumberAxis yAxis = new NumberAxis(0, timeline.getChartDataMaxValue(), 10);
 		AreaChart<Number, Number> areaChart = new AreaChart<>(xAxis, yAxis);
-//		areaChart.setId("achart");
-		areaChart.setMinSize(AreaChart.USE_COMPUTED_SIZE,AreaChart.USE_COMPUTED_SIZE);
-		areaChart.setPrefSize(AreaChart.USE_COMPUTED_SIZE,AreaChart.USE_COMPUTED_SIZE);
-//		areaChart.setMaxSize(AreaChart.USE_COMPUTED_SIZE,AreaChart.USE_COMPUTED_SIZE);
+		// areaChart.setId("achart");
+		areaChart.setMinSize(AreaChart.USE_COMPUTED_SIZE, AreaChart.USE_COMPUTED_SIZE);
+		areaChart.setPrefSize(AreaChart.USE_COMPUTED_SIZE, AreaChart.USE_COMPUTED_SIZE);
+		areaChart.setMaxSize(2000,20000);//,AreaChart.USE_COMPUTED_SIZE);
 
-//		System.out.format("Area chart:%s, xaxis:%s\n", areaChart, null);
+		// System.out.format("Area chart:%s, xaxis:%s\n", areaChart, null);
 		areaChart.getData().addAll(facebookSeries, twitterSeries, youtubeSeries);
 		areaChartBox.getChildren().clear();
 		areaChartBox.getChildren().add(areaChart);
+		VBox.setVgrow(areaChart, Priority.ALWAYS);
 	}
 }

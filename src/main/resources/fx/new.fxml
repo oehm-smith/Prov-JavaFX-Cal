@@ -13,16 +13,17 @@
 <?import javafx.scene.web.*?>
 <!-- fx:controller="fx.FxController" -->
 
-<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml" fx:controller="view.View">
+<BorderPane id="BorderPane" maxHeight="-Infinity" maxWidth="-Infinity" xmlns:fx="http://javafx.com/fxml" fx:controller="view.View">
   <center>
-    <AnchorPane>
+    <AnchorPane BorderPane.alignment="CENTER">
       <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <padding>
           <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </padding>
-        <TitledPane maxHeight="900.0" maxWidth="2000.0" minHeight="100.0" minWidth="200.0" prefHeight="200.0" prefWidth="800.0" text="Data chart" VBox.vgrow="ALWAYS">
-          <VBox fx:id="areaChartBox">
+        <TitledPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="200.0" prefHeight="200.0" prefWidth="800.0" text="Data chart" VBox.vgrow="ALWAYS">
+          <VBox fx:id="areaChartBox"><!-- areaChartBoxXXXX" -->
             <Button fx:id="buttonDummy" mnemonicParsing="false" text="Button for fun" />
+            <Region id="myregion" prefHeight="200.0" prefWidth="200.0" styleClass=".button" VBox.vgrow="ALWAYS" />
           </VBox>
         </TitledPane>
         <MenuButton fx:id="dropdownTimeScaleId" mnemonicParsing="false" text="Time Scale">
